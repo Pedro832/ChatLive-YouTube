@@ -1,0 +1,80 @@
+body {
+    background-color: black;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+#box {
+    background: rgba(38, 37, 37, 0.95);
+    color: white;
+    padding: 40px;
+    border-radius: 15px;
+    border-left: 15px solid #ff0000;
+    font-size: 2.5rem;
+    max-width: 80%;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+
+.animar-entrada {
+    animation: entrar 0.5s forwards ease-out;
+}
+
+.animar-saida {
+    animation: sair 0.5s forwards ease-in;
+}
+
+@keyframes entrar {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes sair {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+}
+
+.header-usuario {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#user-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 3px solid #ff0000;
+}
+
+.name {
+    color: #d1d1d1;
+    font-weight: bold;
+    font-size: 1.8rem;
+    display: block;
+}
+
+#text {
+    line-height: 1.2;
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Painel de Controle</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+      @import url("/css/painel.css");
+    </style>
+  </head>
+  <body>
+    <div id="setup-screen">
+      <div class="setup-container">
+        <h1 style="margin: 0">YouTube Live Chat</h1>
+        <p style="color: #888">Insira o link da transmissão para começar</p>
+        <input type="text" id="live-url" placeholder="URL ou ID da Live" />
+        <button id="btn-conectar" class="btn">INICIAR PAINEL</button>
+      </div>
+    </div>
+
+    <div id="main-screen">
+      <header>
+        <span style="color: var(--success); font-weight: bold">● AO VIVO</span>
+        <a
+          target="_blank"
+          class="anchor-button"
+          href="http://localhost:3000/overlay"
+          >Visualizar</a
+        >
+        <button id="btn-trocar-live" class="btn">Trocar Live</button>
+      </header>
+
+      <div id="chat"></div>
+    </div>
+
+    <script src="/js/painel.js"></script>
+  </body>
+</html>
