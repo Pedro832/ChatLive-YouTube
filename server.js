@@ -8,8 +8,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
-let liveChat = null;       // YouTube
-let tiktokChat = null;     // TikTok
+let liveChat = null;       
+let tiktokChat = null;     
 
 app.use(express.static('public'));
 
@@ -25,7 +25,6 @@ function pushMsg(msgData) {
     io.emit('nova_mensagem', msgData);
 }
 
-// ─── YouTube ────────────────────────────────────────────────────────────────
 function iniciarYoutube(videoId) {
     if (liveChat) {
         liveChat.stop();
@@ -65,14 +64,14 @@ function pararYoutube() {
     io.emit('status_youtube', { online: false });
 }
 
-// ─── TikTok ─────────────────────────────────────────────────────────────────
+
 function iniciarTiktok(username) {
     if (tiktokChat) {
         tiktokChat.disconnect();
         tiktokChat = null;
     }
 
-    // Remove @ se o usuário digitou com @
+    
     const user = username.replace(/^@/, '');
 
     tiktokChat = new WebcastPushConnection(user);
@@ -118,14 +117,14 @@ function pararTiktok() {
     io.emit('status_tiktok', { online: false });
 }
 
-// ─── Socket.io ──────────────────────────────────────────────────────────────
+
 io.on('connection', (socket) => {
-    // Envia histórico e status atual para quem acabou de conectar
+    
     socket.emit('historico_chat', chatHistory);
     socket.emit('status_youtube', { online: !!liveChat });
     socket.emit('status_tiktok', { online: !!tiktokChat });
 
-    // YouTube
+    
     socket.on('iniciar_youtube', (urlOuId) => {
         const id = urlOuId.includes('v=')     ? urlOuId.split('v=')[1].split('&')[0]
                  : urlOuId.includes('live/')  ? urlOuId.split('live/')[1].split('?')[0]
@@ -136,14 +135,14 @@ io.on('connection', (socket) => {
 
     socket.on('parar_youtube', () => pararYoutube());
 
-    // TikTok
+    
     socket.on('iniciar_tiktok', (username) => {
         iniciarTiktok(username.trim());
     });
 
     socket.on('parar_tiktok', () => pararTiktok());
 
-    // Overlay
+    
     socket.on('selecionar_msg', (data) => {
         io.emit('exibir_no_overlay', data);
     });
@@ -152,7 +151,7 @@ io.on('connection', (socket) => {
         io.emit('limpar_overlay');
     });
 
-    // Limpar histórico do chat visível
+    
     socket.on('limpar_historico', () => {
         chatHistory.length = 0;
         io.emit('historico_chat', []);
